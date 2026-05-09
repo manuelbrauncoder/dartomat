@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lsof -ti:8765)",
+      "Bash(xargs -I {} kill {})",
+      "Bash(node *)"
+    ]
+  }
+}

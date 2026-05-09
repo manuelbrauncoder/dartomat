@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <title>Dartomat — 301</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!-- Setup-Screen -->
+      <section id="setup" class="screen">
+        <header class="setup-header">
+          <h1>Dartomat</h1>
+          <p class="subtitle">301 — schlicht und schnell.</p>
+        </header>
+
+        <div class="card">
+          <h2>Spieler</h2>
+          <ol id="player-list" class="player-list" aria-label="Spieler"></ol>
+
+          <form id="add-player-form" class="add-player">
+            <input
+              id="add-player-input"
+              type="text"
+              placeholder="Name eingeben"
+              autocomplete="off"
+              maxlength="24"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Hinzufügen</button>
+          </form>
+
+          <div id="recent-names" class="recent-names" hidden>
+            <span class="recent-label">Zuletzt:</span>
+            <div id="recent-names-list" class="recent-chips"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <label class="toggle">
+            <input type="checkbox" id="setup-double-out" checked />
+            <span class="toggle-label">Double-Out</span>
+            <span class="toggle-hint">Letzter Wurf muss ein Double sein.</span>
+          </label>
+        </div>
+
+        <button id="start-game" class="btn btn-primary btn-block" disabled>
+          Spiel starten
+        </button>
+      </section>
+
+      <!-- Game-Screen -->
+      <section id="game" class="screen" hidden>
+        <header class="game-header">
+          <button id="open-menu" class="icon-btn" aria-label="Menü">⋯</button>
+          <div class="game-title">301<span class="game-title-sub" id="game-mode-sub"></span></div>
+          <button id="undo" class="icon-btn" aria-label="Letzten Wurf zurücknehmen">↶</button>
+        </header>
+
+        <ul id="scoreboard" class="scoreboard" aria-label="Punktestand"></ul>
+
+        <div class="current-turn">
+          <div class="current-turn-label">Aufnahme</div>
+          <div id="current-darts" class="current-darts">
+            <span class="dart-slot" data-slot="0">—</span>
+            <span class="dart-slot" data-slot="1">—</span>
+            <span class="dart-slot" data-slot="2">—</span>
+          </div>
+        </div>
+
+        <div class="keypad">
+          <div class="multipliers" role="group" aria-label="Multiplikator">
+            <button class="mult-btn is-active" data-mult="1">Single</button>
+            <button class="mult-btn" data-mult="2">Double</button>
+            <button class="mult-btn" data-mult="3">Triple</button>
+          </div>
+
+          <div id="numbers" class="numbers" role="group" aria-label="Zahlen"></div>
+
+          <div class="specials" role="group" aria-label="Sonderfelder">
+            <button class="num-btn" data-value="25">25</button>
+            <button class="num-btn" data-value="50">50</button>
+            <button class="num-btn miss" data-value="0">Miss</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menü-Sheet -->
+      <div id="menu-sheet" class="sheet" hidden>
+        <div class="sheet-backdrop" data-close-menu></div>
+        <div class="sheet-content" role="dialog" aria-label="Spiel-Menü">
+          <h3>Optionen</h3>
+          <label class="toggle">
+            <input type="checkbox" id="game-double-out" />
+            <span class="toggle-label">Double-Out</span>
+          </label>
+          <button id="restart-game" class="btn btn-secondary btn-block">Neues Spiel mit gleichen Spielern</button>
+          <button id="abort-game" class="btn btn-danger btn-block">Spiel abbrechen</button>
+          <button class="btn btn-ghost btn-block" data-close-menu>Schließen</button>
+        </div>
+      </div>
+
+      <!-- Win-Overlay -->
+      <div id="win-overlay" class="overlay" hidden>
+        <div class="overlay-content" role="dialog" aria-modal="true" aria-label="Gewinner">
+          <div class="trophy" aria-hidden="true">🏆</div>
+          <h2 id="winner-name">Gewinner</h2>
+          <p class="winner-sub">301 ist gespielt.</p>
+          <ol id="final-standings" class="standings" aria-label="Endstand"></ol>
+          <button id="new-game" class="btn btn-primary btn-block">Neues Spiel</button>
+          <button id="back-to-setup" class="btn btn-ghost btn-block">Zurück zur Spielerauswahl</button>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
