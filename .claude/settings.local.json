@@ -3,7 +3,8 @@
     "allow": [
       "Bash(lsof -ti:8765)",
       "Bash(xargs -I {} kill {})",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(python3 -c \"import json; json.load\\(open\\('/Users/manuel/Playground/dartomat/manifest.webmanifest'\\)\\)\")"
     ]
   }
 }

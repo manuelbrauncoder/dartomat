@@ -1,0 +1,14 @@
+{
+  "name": "Dartomat",
+  "short_name": "Dartomat",
+  "description": "Schlanker Dart-Punktezähler für 301.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f6f4",
+  "theme_color": "#d6451f",
+  "icons": [
+    { "src": "favicon.png", "sizes": "any", "type": "image/png" }
+  ]
+}

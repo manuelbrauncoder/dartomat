@@ -19,7 +19,7 @@ jobs:
       - name: 📁 Prepare static build (Docker context)
         run: |
           mkdir -p dist/static-build
-          cp -r index.html styles.css favicon.png js dist/static-build/
+          cp -r index.html styles.css favicon.png manifest.webmanifest sw.js js dist/static-build/
 
           cat <<EOF > dist/static-build/nginx.conf
           server {
