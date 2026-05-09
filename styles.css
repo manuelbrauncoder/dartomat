@@ -176,6 +176,7 @@ body {
 .add-player {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .add-player input {
@@ -186,7 +187,7 @@ body {
   color: var(--text);
   border-radius: var(--radius-sm);
   padding: 0 12px;
-  height: 44px;
+  height: 48px;
   font: inherit;
 }
 
@@ -282,6 +283,17 @@ body {
 
 .btn-ghost {
   background: transparent;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
 }
 
 .btn-block {
@@ -730,7 +742,7 @@ body {
 
 /* ================= Misc ================= */
 
-@media (max-width: 360px) {
+@media (max-width: 500px) {
   :root {
     --tap: 52px;
     --gap: 8px;
@@ -739,4 +751,8 @@ body {
   .numbers {
     grid-template-columns: repeat(4, 1fr);
   }
+
+    .add-player button {
+      flex: 1;
+    }
 }
