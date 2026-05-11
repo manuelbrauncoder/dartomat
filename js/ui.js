@@ -258,10 +258,14 @@ export function initUI({ initialGame, onGameChange }) {
     gameModeSubEl.textContent = game.doubleOut ? 'Double-Out' : 'Straight-Out';
 
     scoreboardEl.innerHTML = '';
+    let currentRowEl = null;
     game.players.forEach((p, i) => {
       const li = document.createElement('li');
       li.className = 'score-row';
-      if (i === game.currentPlayerIdx && game.winnerIdx === null) li.classList.add('is-current');
+      if (i === game.currentPlayerIdx && game.winnerIdx === null) {
+        li.classList.add('is-current');
+        currentRowEl = li;
+      }
       if (game.winnerIdx === i) li.classList.add('is-winner');
       li.innerHTML = `
         <span class="name"></span>
@@ -271,6 +275,8 @@ export function initUI({ initialGame, onGameChange }) {
       $('.score', li).textContent = p.score;
       scoreboardEl.appendChild(li);
     });
+
+    if (currentRowEl) scrollRowIntoViewIfNeeded(currentRowEl);
 
     const slots = $$('.dart-slot', dartsEl);
     slots.forEach((slot, idx) => {
@@ -289,6 +295,17 @@ export function initUI({ initialGame, onGameChange }) {
     } else {
       winOverlay.hidden = true;
     }
+  }
+
+  function scrollRowIntoViewIfNeeded(rowEl) {
+    const parent = scoreboardEl;
+    const rowLeft = rowEl.offsetLeft - parent.offsetLeft;
+    const rowRight = rowLeft + rowEl.offsetWidth;
+    const viewLeft = parent.scrollLeft;
+    const viewRight = viewLeft + parent.clientWidth;
+    if (rowLeft >= viewLeft && rowRight <= viewRight) return;
+    const target = rowLeft - (parent.clientWidth - rowEl.offsetWidth) / 2;
+    parent.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
   }
 
   function renderStandings() {

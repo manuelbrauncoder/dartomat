@@ -1,5 +1,5 @@
 // Cache-Version bei jedem Shell-Update hochzählen, damit Clients die neuen Assets ziehen.
-const CACHE_NAME = 'dartomat-v1';
+const CACHE_NAME = 'dartomat-v4';
 
 const APP_SHELL = [
   '/',

@@ -45,11 +45,16 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Noto Sans", system-ui, sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
 }
 
 body {
@@ -171,6 +176,22 @@ body {
 .icon-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+}
+
+.icon-btn-outline {
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.icon-btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.icon-btn-outline:disabled:hover {
+  border-color: var(--border);
+  color: var(--text);
 }
 
 .add-player {
@@ -320,7 +341,9 @@ body {
   border: 1px solid var(--border);
   position: relative;
   cursor: pointer;
-  transition: background 120ms ease, border-color 120ms ease;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease;
 }
 
 .toggle input[type="checkbox"]::after {
@@ -390,13 +413,25 @@ body {
 .scoreboard {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  padding: 4px 2px;
+  display: flex;
+  flex-direction: row;
   gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scoreboard::-webkit-scrollbar {
+  display: none;
 }
 
 .score-row {
+  flex: 0 0 auto;
+  min-width: 140px;
+  scroll-snap-align: center;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -406,7 +441,9 @@ body {
   gap: 2px;
   position: relative;
   box-shadow: var(--shadow);
-  transition: border-color 120ms ease, transform 120ms ease;
+  transition:
+    border-color 120ms ease,
+    transform 120ms ease;
 }
 
 .score-row.is-current {
@@ -521,7 +558,10 @@ body {
   height: var(--tap);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 80ms ease, color 80ms ease, border-color 80ms ease;
+  transition:
+    background 80ms ease,
+    color 80ms ease,
+    border-color 80ms ease;
 }
 
 .mult-btn:disabled {
@@ -558,7 +598,9 @@ body {
   height: var(--tap);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 80ms ease, transform 60ms ease;
+  transition:
+    background 80ms ease,
+    transform 60ms ease;
 }
 
 .num-btn:hover {
@@ -752,7 +794,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
   }
 
-    .add-player button {
-      flex: 1;
-    }
+  .add-player button {
+    flex: 1;
+  }
 }

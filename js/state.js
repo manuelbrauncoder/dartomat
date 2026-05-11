@@ -52,12 +52,21 @@ export function clearGame() {
   localStorage.removeItem(KEY_GAME);
 }
 
+function shuffled(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export function createGame({ names, doubleOut, startScore = 301 }) {
   return {
     mode: '301',
     startScore,
     doubleOut: !!doubleOut,
-    players: names.map((name, i) => ({
+    players: shuffled(names).map((name, i) => ({
       id: `${Date.now().toString(36)}-${i}`,
       name,
       score: startScore,
