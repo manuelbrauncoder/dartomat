@@ -1,5 +1,5 @@
 // Cache-Version bei jedem Shell-Update hochzählen, damit Clients die neuen Assets ziehen.
-const CACHE_NAME = 'dartomat-v4';
+const CACHE_NAME = 'dartomat-v5';
 
 const APP_SHELL = [
   '/',
@@ -10,6 +10,7 @@ const APP_SHELL = [
   '/js/main.js',
   '/js/state.js',
   '/js/game301.js',
+  '/js/checkout.js',
   '/js/ui.js',
 ];
 
@@ -53,7 +54,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first für statische Assets.
+  // Network-first für JS: verhindert stale Module nach Deploy (z. B. neue Imports).
+  if (url.pathname.startsWith('/js/')) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(req, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req)),
+    );
+    return;
+  }
+
+  // Cache-first für übrige statische Assets.
   event.respondWith(
     caches.match(req).then(
       (cached) =>

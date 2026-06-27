@@ -26,6 +26,7 @@ Danach: <http://localhost:8000> öffnen.
 4. **Würfe eingeben:** Multiplikator wählen (Single/Double/Triple), dann Zahl tippen. `25` = Bull, `50` = Double-Bull, `Miss` = 0 Punkte. Der Multiplikator springt nach jedem Wurf zurück auf Single. Nach 3 Darts wechselt automatisch der Spieler.
 5. **Korrigieren:** ↶ oben rechts macht den letzten Wurf rückgängig (auch über Bust und Spielerwechsel hinweg).
 6. **Menü (⋯):** Double-Out umschalten, Neues Spiel mit gleichen Spielern, Spiel abbrechen.
+7. **Checkout-Tipp:** Liegt der aktuelle Spieler im Checkout-Bereich, erscheint zwischen Punktestand und Aufnahme ein Vorschlag (z. B. `T20 · T19 · D12`). Der Tipp passt sich nach jedem Wurf und beim Umschalten von Double-Out an; bei unmöglichen Restpunkten steht „Kein Checkout möglich".
 
 Der Spielstand wird automatisch im Browser gespeichert (LocalStorage) — ein Reload führt das laufende Spiel weiter.
 
@@ -38,5 +39,6 @@ js/
   main.js       Bootstrap
   state.js      LocalStorage + Game-Factory
   game301.js    Regel-Engine (applyDart, undoLast, formatDart)
+  checkout.js   Checkout-Empfehlungen (Chart + Solver)
   ui.js         DOM-Rendering & Event-Handling
 ```

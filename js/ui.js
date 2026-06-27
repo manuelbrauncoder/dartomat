@@ -1,4 +1,5 @@
-import { applyDart, undoLast, formatDart } from './game301.js';
+import { applyDart, undoLast, formatDart, TURN_DARTS } from './game301.js';
+import { recommendCheckout } from './checkout.js';
 import {
   loadRecentPlayers,
   rememberNames,
@@ -132,6 +133,8 @@ export function initUI({ initialGame, onGameChange }) {
   const newGameBtn = $('#new-game');
   const backToSetupBtn = $('#back-to-setup');
   const gameModeSubEl = $('#game-mode-sub');
+  const checkoutHintEl = $('#checkout-hint');
+  const checkoutRouteEl = $('#checkout-route');
 
   function buildNumberPad() {
     numbersEl.innerHTML = '';
@@ -288,6 +291,8 @@ export function initUI({ initialGame, onGameChange }) {
 
     undoBtn.disabled = game.history.length === 0;
 
+    renderCheckoutHint();
+
     if (game.winnerIdx !== null) {
       winnerNameEl.textContent = `${game.players[game.winnerIdx].name} gewinnt!`;
       renderStandings();
@@ -295,6 +300,38 @@ export function initUI({ initialGame, onGameChange }) {
     } else {
       winOverlay.hidden = true;
     }
+  }
+
+  function hideCheckoutHint() {
+    if (!checkoutHintEl || !checkoutRouteEl) return;
+    checkoutHintEl.hidden = true;
+    checkoutRouteEl.textContent = '';
+    checkoutHintEl.classList.remove('is-impossible');
+  }
+
+  function renderCheckoutHint() {
+    if (!checkoutHintEl || !checkoutRouteEl) return;
+
+    if (game.winnerIdx !== null) {
+      hideCheckoutHint();
+      return;
+    }
+
+    const player = game.players[game.currentPlayerIdx];
+    const rec = recommendCheckout({
+      score: player.score,
+      dartsLeft: TURN_DARTS - game.currentTurnDarts.length,
+      doubleOut: game.doubleOut,
+    });
+
+    if (rec.status === 'hidden') {
+      hideCheckoutHint();
+      return;
+    }
+
+    checkoutHintEl.hidden = false;
+    checkoutRouteEl.textContent = rec.label;
+    checkoutHintEl.classList.toggle('is-impossible', rec.status === 'impossible');
   }
 
   function scrollRowIntoViewIfNeeded(rowEl) {
@@ -339,6 +376,7 @@ export function initUI({ initialGame, onGameChange }) {
     gameScreen.hidden = true;
     winOverlay.hidden = true;
     menuSheet.hidden = true;
+    if (checkoutHintEl) hideCheckoutHint();
   }
 
   function showGame() {

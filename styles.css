@@ -488,6 +488,56 @@ body {
   color: var(--success);
 }
 
+/* ================= Checkout hint ================= */
+
+.checkout-hint[hidden] {
+  display: none !important;
+}
+
+.checkout-hint {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+
+.checkout-hint.is-impossible {
+  border-color: var(--border);
+}
+
+.checkout-label {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.checkout-hint.is-impossible .checkout-label {
+  color: var(--text-muted);
+}
+
+.checkout-route {
+  flex: 1 1 auto;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.checkout-hint.is-impossible .checkout-route {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
 /* ================= Current turn ================= */
 
 .current-turn {
